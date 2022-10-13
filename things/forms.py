@@ -3,8 +3,11 @@
 # Create your forms here.
 
 from django import forms
+from django.core.validators import MinValueValidator
+from .models import Thing
 
-class ThingForm(forms.Form):
-    name = forms.CharField(max_length=100)
-    description = forms.CharField(widget=forms.Textarea)
-    quantity = forms.IntegerField(widget=forms.NumberInput)
+class ThingForm(forms.ModelForm):
+    class Meta:
+        model = Thing
+        fields = ['name', 'description', 'quantity']
+        widgets = {'description': forms.Textarea, 'quantity': forms.NumberInput}    
